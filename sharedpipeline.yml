@@ -1,0 +1,33 @@
+trigger: none
+
+parameters:
+- name: repo
+  displayName: projects
+  type: string
+  default: projects-platform
+  values: 
+    - projectA
+    - projectB
+    - projectC
+    - projectD
+
+resources:
+  repositories: 
+    - repository: projects_platform
+      type: github
+      name: example.repo #type repo name from where we are calling templates
+      ref: 'main'
+      endpoint: ''
+stages:
+- stage: Build
+  displayName: CI
+  jobs:
+  - job: Build
+    variables:
+    - template: variables.yml
+    displayName: "Pipeline"
+    steps:
+    - checkout: ${{ parameters.repo }}
+    - template: location_of_template@projects_platform
+      parameters:
+        ${{ insert }}: ${{ variables }}
