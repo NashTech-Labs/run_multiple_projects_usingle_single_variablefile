@@ -1,0 +1,5 @@
+variables:
+- group: Main Variables #This is the build group which we made from azure devops
+
+- name: npmbuild
+  value: "build --if-present"
